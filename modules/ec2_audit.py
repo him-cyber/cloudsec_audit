@@ -6,6 +6,7 @@ def run(profile=None):
 
     findings = audit_instances(ec2)
     print_findings(findings)
+    return findings
 
 def audit_instances(ec2_client):
     findings = []

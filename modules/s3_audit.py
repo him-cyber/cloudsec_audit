@@ -6,6 +6,7 @@ def run(profile=None):
 
     findings = audit_buckets(s3)
     print_findings(findings)
+    return findings
 
 def audit_buckets(s3_client):
     findings = []

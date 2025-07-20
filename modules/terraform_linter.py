@@ -15,6 +15,7 @@ def run(tf_file_path):
 
     findings = audit_terraform(content)
     print_findings(findings)
+    return findings
 
 def audit_terraform(tf_content):
     findings = []

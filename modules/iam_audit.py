@@ -6,6 +6,7 @@ def run(profile=None):
 
     findings = audit_users(iam)
     print_findings(findings)
+    return findings
 
 def audit_users(iam_client):
     findings = []

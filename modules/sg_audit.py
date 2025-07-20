@@ -6,6 +6,7 @@ def run(profile=None):
 
     findings = audit_security_groups(ec2)
     print_findings(findings)
+    return findings
 
 def audit_security_groups(ec2_client):
     findings = []

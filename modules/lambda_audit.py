@@ -6,6 +6,7 @@ def run(profile=None):
 
     findings = audit_lambda(client)
     print_findings(findings)
+    return findings
 
 def audit_lambda(client):
     findings = []
