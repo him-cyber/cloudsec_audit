@@ -1,0 +1,30 @@
+name: CloudSec Audit
+description: Run cloud security audits on AWS using CLI
+inputs:
+  check:
+    description: 'Audit module to run (iam, s3, ec2, etc)'
+    required: true
+  profile:
+    description: 'AWS profile (optional if secrets are set)'
+    required: false
+  file:
+    description: 'Terraform file path (only for terraform check)'
+    required: false
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install requirements
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+
+    - name: Run Audit
+      run: |
+        source venv/bin/activate
+        python main.py --check ${{ inputs.check }} ${{ inputs.file && format('--file {0}', inputs.file) || '' }} ${{ inputs.profile && format('--profile {0}', inputs.profile) || '' }}
