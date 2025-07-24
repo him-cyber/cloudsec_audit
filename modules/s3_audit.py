@@ -1,7 +1,7 @@
-import boto3
+from utils.aws_session import get_boto3_session  # type: ignore
 
 def run(profile=None):
-    session = boto3.Session(profile_name=profile) if profile else boto3.Session()
+    session = get_boto3_session(profile)
     s3 = session.client("s3")
 
     findings = audit_buckets(s3)
@@ -46,6 +46,8 @@ def block_public_access_enabled(s3_client, bucket_name):
         config = settings["PublicAccessBlockConfiguration"]
         return all(config.values())
     except s3_client.exceptions.NoSuchPublicAccessBlockConfiguration:
+        return False
+    except Exception:
         return False
 
 def has_encryption(s3_client, bucket_name):

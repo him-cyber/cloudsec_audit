@@ -4,14 +4,14 @@ import os
 def run(tf_file_path):
     if not tf_file_path or not os.path.isfile(tf_file_path):
         print(f"[ERROR] Terraform file not found: {tf_file_path}")
-        return
+        return []
 
     try:
         with open(tf_file_path, "r") as file:
             content = file.read()
     except Exception as e:
         print(f"[ERROR] Failed to read file: {tf_file_path} - {e}")
-        return
+        return []
 
     findings = audit_terraform(content)
     print_findings(findings)

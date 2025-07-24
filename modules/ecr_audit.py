@@ -1,8 +1,8 @@
-import boto3
 from datetime import datetime, timezone, timedelta
+from utils.aws_session import get_boto3_session  # ✅ shared helper
 
 def run(profile=None):
-    session = boto3.Session(profile_name=profile) if profile else boto3.Session()
+    session = get_boto3_session(profile)  # ✅ unified session loader
     client = session.client("ecr")
 
     findings = audit_ecr(client)

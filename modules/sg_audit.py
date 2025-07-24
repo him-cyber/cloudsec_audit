@@ -1,7 +1,7 @@
-import boto3
+from utils.aws_session import get_boto3_session  # type: ignore
 
 def run(profile=None):
-    session = boto3.Session(profile_name=profile) if profile else boto3.Session()
+    session = get_boto3_session(profile)
     ec2 = session.client("ec2")
 
     findings = audit_security_groups(ec2)
@@ -32,7 +32,11 @@ def check_rules(permissions):
             if cidr == "0.0.0.0/0":
                 if from_port in [22, 3389]:
                     issues.append(f"port {from_port} open to the world")
-                elif from_port is not None and to_port is not None and (to_port - from_port) > 100:
+                elif (
+                    from_port is not None
+                    and to_port is not None
+                    and (to_port - from_port) > 100
+                ):
                     issues.append(f"wide port range {from_port}-{to_port} open to the world")
     return issues
 
