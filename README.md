@@ -18,3 +18,19 @@ To use CloudSec Audit in your CI pipeline:
 1. Add your AWS credentials to your GitHub repo secrets.
 2. Copy `.github/workflows/cloudsec_audit.yml` to your repo.
 3. Adjust the `--check` argument to your desired module (e.g., `--check iam`).
+
+### GitHub Action Usage
+
+To use CloudSec Audit in your CI pipeline:
+
+1.Add your AWS credentials to your GitHub repository secrets.
+
+2.Copy .github/workflows/cloudsec_audit.yml to your own repo.
+
+3.Adjust the --check argument in the workflow to your desired module (e.g., --check iam).
+
+```yaml
+- name: Run CloudSec Audit
+  uses: him-cyber/cloudsec_audit@v1
+  with:
+    check: iam
